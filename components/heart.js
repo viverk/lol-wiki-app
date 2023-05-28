@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { addChampion, removeChampion } from "../actions/championActions";
 
 const HeartButton = ({ onPress, filled, item }) => {
   const [isFilled, setIsFilled] = useState(filled);
 
   const handlePress = () => {
     setIsFilled(!isFilled);
+    onPress(item);
   };
 
   return (
@@ -34,8 +37,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     alignItems: "center",
     justifyContent: "center",
-    /*     borderWidth: 1,
-    borderColor: "black", */
   },
   filledHeart: {
     backgroundColor: "white",
@@ -43,4 +44,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeartButton;
+const mapStateToProps = null;
+
+const mapDispatchToProps = {
+  addChampion,
+  removeChampion,
+};
+
+const ConnectedHeartButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HeartButton);
+
+export default ConnectedHeartButton;
